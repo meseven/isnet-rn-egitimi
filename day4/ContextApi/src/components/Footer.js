@@ -1,10 +1,12 @@
 import { Button, StyleSheet, Text, View } from "react-native";
-import { useTheme } from "../context/ThemeContext";
-import { useLang } from "../context/LangContext";
+import useThemeStore from "../store/useThemeStore";
+import useLangStore from "../store/useLangStore";
 
 const Footer = () => {
-  const { theme, setTheme } = useTheme();
-  const { lang } = useLang();
+  const theme = useThemeStore((state) => state.theme);
+  const toggleTheme = useThemeStore((state) => state.toggleTheme);
+
+  const lang = useLangStore((state) => state.lang);
 
   return (
     <View style={styles.container}>
@@ -12,12 +14,7 @@ const Footer = () => {
       <Text>Theme: {theme}</Text>
       <Text>Language: {lang}</Text>
 
-      <Button
-        title="Temayı Değiştir"
-        onPress={() =>
-          setTheme((prev) => (prev === "light" ? "dark" : "light"))
-        }
-      />
+      <Button title="Temayı Değiştir" onPress={toggleTheme} />
     </View>
   );
 };
