@@ -1,22 +1,20 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import Message from "./Message";
 import { LinearGradient } from "expo-linear-gradient";
 import useMessageStore from "../store/useMessageStore";
-import { useSocket, useSocketEvent } from "socket.io-react-hook";
-import { WEBSOCKET_URL } from "../constants";
 
 const Messages = () => {
   const messages = useMessageStore((state) => state.messages);
   const addMessage = useMessageStore((state) => state.addMessage);
 
-  const { socket } = useSocket(WEBSOCKET_URL);
+  // const { socket } = useSocket(WEBSOCKET_URL);
 
-  useSocketEvent(socket, "new-message", {
-    onMessage: (data) => {
-      if (!data) return;
-      addMessage(data);
-    },
-  });
+  // useSocketEvent(socket, "new-message", {
+  //   onMessage: (data) => {
+  //     if (!data) return;
+  //     addMessage(data);
+  //   },
+  // });
 
   return (
     <View style={styles.container}>

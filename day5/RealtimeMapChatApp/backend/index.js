@@ -12,14 +12,13 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
+  console.log("a user connected", socket.id);
 
-  socket.emit("initial", messages);
+  socket.emit("initial-messages", messages);
 
   socket.on("new-message", (msg) => {
-    console.log("new-message", msg);
-
-    messages.push(msg);
+    console.log("new message", msg);
+    messages.unshift(msg);
     io.emit("new-message", msg);
   });
 });
